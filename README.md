@@ -55,12 +55,6 @@ The original dataset contains shipment details, delivery timelines, geographic i
 
 A precipitation factor was added to the dataset using quantile-based binning to simulate weather impact on logistics performance. This allows the system to incorporate environmental conditions into delivery time and decision modeling.
 
-## 🧠 Current Progress
-
-- Repository initialized  
-- Base dataset structured  
-- Precipitation feature engineered using quantile binning  
-- README documentation created  
 
 ## 🛠 Development Phases
 
@@ -166,7 +160,7 @@ Chosen for balanced F1 score, stable ROC-AUC, interpretability, and deployment s
 - Precision ≈ 0.98  
 - Recall ≈ 0.61  
 - F1 Score ≈ 0.75  
-- ROC-AUC ≈ 0.79  
+- ROC-AUC ≈ 0.80  
 
 ---
 
@@ -176,3 +170,108 @@ Chosen for balanced F1 score, stable ROC-AUC, interpretability, and deployment s
 - `data/processed/dataset_with_delay_probability.csv`
 
 This completes the predictive layer of the Smart Logistics Decision System.
+
+---
+
+## ⚖️ Phase 3 – Risk Classification & Decision Layer
+
+### 🎯 Objective
+Transform predicted delay probabilities into structured operational risk levels and integrate business rule overrides to create a robust decision engine.
+
+---
+
+### 🔄 Architecture Overview
+
+Phase 3 converts:
+
+Model Output → Risk Tier → Rule Overrides → Final Risk Level
+
+Pipeline:
+
+1. `delay_probability` (from Phase 2 model)
+2. Probability-to-risk mapping
+3. Rule-based escalation
+4. Final operational risk classification
+
+This creates a hybrid ML + domain-intelligence system.
+
+---
+
+### 📊 Step 3.1 – Probability → Risk Mapping
+
+Delay probability is converted into structured risk tiers:
+
+- `< 0.40` → Low  
+- `0.40 – 0.70` → Medium  
+- `> 0.70` → High  
+- `> 0.85` → Critical  
+
+Implemented via:
+
+`get_risk_level(probability)`
+
+Generated column:
+
+`ml_risk_level`
+
+This ensures model output becomes actionable.
+
+---
+
+### 🏢 Step 3.2 – Rule-Based Risk Overrides
+
+To enhance robustness, business logic rules were introduced.
+
+#### Rule 1 – Weather-Traffic Escalation
+If:
+- Precipitation (mm) > 20  
+- Traffic_Status_Heavy == 1  
+
+→ Risk escalated to **Critical**
+
+#### Rule 2 – Asset Stress Escalation
+If:
+- Asset_Utilization > 90  
+
+→ Risk escalated to **High**
+
+Final risk level is determined as the maximum severity between:
+
+- ML-derived risk  
+- Rule-based escalation  
+
+Generated column:
+
+`final_risk_level`
+
+---
+
+### 🧠 Why Combine ML + Rule Logic?
+
+Pure ML models may miss rare but operationally dangerous scenarios.
+
+By integrating domain rules:
+
+- Critical weather conditions are never ignored  
+- Fleet stress is proactively managed  
+- Operational safety is prioritized  
+- Decision robustness increases  
+
+This design reflects real-world logistics intelligence systems.
+
+---
+
+### 📈 Output
+
+Generated:
+
+`data/processed/dataset_with_risk_levels.csv`
+
+Risk distribution example:
+
+- Medium ≈ 32%  
+- High ≈ 24%  
+- Critical ≈ 24%  
+- Low ≈ 19%  
+
+Phase 3 completes the structured risk engine of the Smart Logistics Decision System.
