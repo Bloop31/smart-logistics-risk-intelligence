@@ -364,3 +364,229 @@ Phase 4 transforms the system into a full decision intelligence pipeline:
 Model → Probability → Risk → Action → ETA Adjustment → Notification
 
 This completes the operational decision layer of the Smart Logistics Decision System.
+
+---
+
+## 🚀 Phase 5 – Production Deployment & Mathematical Decision Engine
+
+Phase 5 transforms the Smart Logistics System into a modular, deployment-ready, mathematically grounded decision engine.
+
+This phase replaces notebook-level experimentation with structured production architecture.
+
+---
+
+### 🧩 1️⃣ Modular Decision Engine
+
+Converted experimental logic into a reusable module:
+
+`decision_engine.py`
+
+Implemented reusable functions:
+
+- `classify_risk()`
+- `get_action()`
+- `calculate_baseline_eta()`
+- `calculate_optimized_eta()`
+- `generate_notification()`
+
+Key Improvements:
+
+- Removed all hardcoded constants
+- All thresholds and calculations are dataset-driven
+- Deterministic outputs
+- Fully reusable architecture
+
+---
+
+### 📐 2️⃣ Data-Driven ETA Computation (Mathematical Formulation)
+
+#### Operational Base Time
+
+\[
+operational\_base\_time = \text{mean}(Waiting\_Time)
+\]
+
+#### Traffic Impact
+
+\[
+traffic\_impact(level) =
+\text{mean}(delay\_probability \mid traffic\_level = level)
+\]
+
+#### Traffic Delay Factor
+
+\[
+traffic\_delay\_factor = traffic\_impact[traffic\_level]
+\]
+
+#### Baseline ETA
+
+\[
+baseline\_eta =
+operational\_base\_time + (traffic\_delay\_factor \times operational\_base\_time)
+\]
+
+Simplified:
+
+\[
+baseline\_eta =
+operational\_base\_time \times (1 + traffic\_delay\_factor)
+\]
+
+This ensures ETA reflects real statistical traffic behavior rather than arbitrary assumptions.
+
+---
+
+### 🛣 3️⃣ Mathematical Reroute Optimization
+
+Clear traffic reference:
+
+\[
+clear\_factor = \min(traffic\_impact)
+\]
+
+Improvement formula (50% congestion recovery):
+
+\[
+optimized\_factor =
+original\_factor
+- 0.5 \times (original\_factor - clear\_factor)
+\]
+
+Optimized ETA:
+
+\[
+optimized\_eta =
+operational\_base\_time
++ (optimized\_factor \times operational\_base\_time)
+\]
+
+Guarantee:
+
+\[
+clear < optimized\_heavy < heavy
+\]
+
+No arbitrary ETA subtraction is used.
+
+All improvements are mathematically bounded.
+
+---
+
+### ⚖️ 4️⃣ Risk → Action Mapping
+
+- **Low** → `A_Normal`
+- **Medium** → `B_Monitor`
+- **High** → `C_Reroute_Notify`
+- **High + Utilization > 90%** → `D_Reroute_Notify_Redistribute`
+- **Critical** → `D_Reroute_Notify_Redistribute`
+
+Escalation logic integrates both predictive and operational stress signals.
+
+---
+
+### 📊 5️⃣ Fleet Utilization Stress Analysis
+
+Utilization buckets:
+
+- (0–70]
+- (70–90]
+- (90–100]
+
+Average delay per bucket:
+
+\[
+utilization\_impact =
+\text{mean}(delay\_probability \mid utilization\_bucket)
+\]
+
+Stress gap:
+
+\[
+stress\_gap =
+high\_util\_factor - medium\_util\_factor
+\]
+
+Redistribution condition:
+
+\[
+if \; stress\_gap < threshold \Rightarrow
+\text{Skip Redistribution}
+\]
+
+Fleet redistribution is data-validated, not forced.
+
+---
+
+### 💬 6️⃣ AI-Based Customer Notification Layer
+
+Dynamic notification logic based on:
+
+- Risk level
+- Traffic condition
+- Baseline ETA
+- Optimized ETA
+
+Decision logic:
+
+If:
+\[
+optimized\_eta < baseline\_eta
+\]
+→ Message communicates improvement.
+
+Else:
+→ Message communicates monitoring status.
+
+This ensures consistent and context-aware communication.
+
+---
+
+### 🖥 7️⃣ Streamlit Production Deployment
+
+Implemented `app.py` for real-time inference.
+
+Key Deployment Features:
+
+- Integrated `delay_model.pkl` and `scaler.pkl`
+- Used `scaler.feature_names_in_` to reconstruct exact training feature order
+- Auto-filled non-user features using dataset means
+- Eliminated feature mismatch and casing errors
+- Guaranteed inference consistency with training pipeline
+
+Frontend Displays:
+
+- Delay Probability
+- Risk Level
+- Action Taken
+- Baseline ETA
+- Optimized ETA
+- Final Customer Notification
+
+---
+
+### 🧠 8️⃣ Technical Advancements
+
+- Full feature alignment with training metadata
+- Zero hardcoded ETA adjustments
+- Deterministic mathematical optimization
+- Modular production architecture
+- Deployment-ready system structure
+
+---
+
+### 🏁 Architectural Outcome
+
+The system now operates as:
+
+\[
+Input
+\rightarrow Model
+\rightarrow Probability
+\rightarrow Risk
+\rightarrow Action
+\rightarrow ETA Optimization
+\rightarrow Notification
+\]
+
+Phase 5 completes the transition from experimental ML project to production-grade intelligent logistics decision system.
