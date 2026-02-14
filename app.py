@@ -31,7 +31,7 @@ scaler = joblib.load("models/scaler.pkl")
 # LOAD SYSTEM DATA (FOR MEANS & CONSTANTS)
 # ======================================
 
-df_system = pd.read_csv("data/processed/dataset_with_risk_levels.csv")
+df_system = pd.read_csv("E:/Projects/Smart-Logistics-System/data/processed/dataset_with_risk_levels.csv")
 
 # Training feature order (EXACTLY as used in model training)
 training_features = [
@@ -120,10 +120,19 @@ if st.button("Analyze Shipment"):
     input_data["Precipitation(mm)"] = precipitation
     input_data["Waiting_Time"] = waiting_time
     input_data["Asset_Utilization"] = asset_utilization
+    input_data["hour"] = hour
+    input_data["peak_hour"] = peak_hour
 
     # Encode traffic
-    input_data["Traffic_Status_Heavy"] = 1 if traffic == "Heavy" else 0
-    input_data["Traffic_Status_Detour"] = 1 if traffic == "Detour" else 0
+    
+    input_data["Traffic_Status_Heavy"] = 0
+    input_data["Traffic_Status_Detour"] = 0
+
+    if traffic == "Heavy":
+        input_data["Traffic_Status_Heavy"] = 1
+    elif traffic == "Detour":
+        input_data["Traffic_Status_Detour"] = 1
+
 
     # Ensure correct column order
     input_data = input_data[training_features]

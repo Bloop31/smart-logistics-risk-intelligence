@@ -24,7 +24,7 @@ def classify_risk(delay_probability):
         return "Low"
     elif delay_probability <= 0.70:
         return "Medium"
-    elif delay_probability <= 0.85:
+    elif delay_probability <= 0.90:
         return "High"
     else:
         return "Critical"
@@ -37,19 +37,19 @@ def classify_risk(delay_probability):
 def get_action(risk, asset_utilization):
 
     if risk == "Low":
-        return "A_Normal"
+        return "Normal"
 
     elif risk == "Medium":
-        return "B_Monitor"
+        return "Monitor"
 
     elif risk == "High":
         if asset_utilization > 90:
-            return "D_Reroute_Notify_Redistribute"
+            return "Reroute_Notify_Redistribute"
         else:
-            return "C_Reroute_Notify"
+            return "Reroute_Notify"
 
     elif risk == "Critical":
-        return "D_Reroute_Notify_Redistribute"
+        return "Reroute_Notify_Redistribute"
 
 
 # ======================================

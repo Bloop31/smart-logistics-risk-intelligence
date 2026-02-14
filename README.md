@@ -204,7 +204,7 @@ Delay probability is converted into structured risk tiers:
 - `< 0.40` → Low  
 - `0.40 – 0.70` → Medium  
 - `> 0.70` → High  
-- `> 0.85` → Critical  
+- `> 0.90` → Critical  
 
 Implemented via:
 
