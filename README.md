@@ -472,7 +472,7 @@ Final System Architecture
 
 This system evolves from predictive modeling into a modular, production-grade logistics decision intelligence platform.
 
-Phase 6 – Financial Intelligence & Batch Shipment Analytics (New)
+# Phase 6 – Financial Intelligence & Batch Shipment Analytics (New)
 Objective
 
 Extend the Smart Logistics Decision System beyond operational prediction into financial exposure modeling and portfolio-level shipment intelligence.
@@ -487,7 +487,7 @@ Batch shipment intelligence mode
 
 Premium executive dashboard interface
 
-6.1 Financial Impact Engine
+# 6.1 Financial Impact Engine
 
 To translate operational delay risk into economic exposure, a financial modeling layer was introduced.
 
@@ -516,7 +516,7 @@ Financial severity classification
 
 This allows decision-makers to quantify operational risk in monetary terms.
 
-6.2 Priority Scoring Mechanism
+# 6.2 Priority Scoring Mechanism
 
 To support operational prioritization, a structured ranking metric was introduced:
 
@@ -535,7 +535,7 @@ Portfolio-level financial exposure
 
 This adds a strategic allocation layer to fleet management.
 
-6.3 Batch Shipment Mode
+# 6.3 Batch Shipment Mode
 
 A dual analysis architecture was implemented.
 
@@ -563,7 +563,7 @@ Allows downloadable analytics results
 
 This transforms the application from a single-inference tool into a logistics portfolio intelligence system.
 
-6.4 Dashboard Upgrade
+# 6.4 Dashboard Upgrade
 
 The Streamlit deployment layer was enhanced
 
