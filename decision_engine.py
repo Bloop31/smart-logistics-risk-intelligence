@@ -126,3 +126,74 @@ def generate_notification(risk,
 
     else:
         return "Your shipment is on schedule."
+# ======================================
+# EXPECTED DELAY HOURS (FOR COST MODEL)
+# ======================================
+
+def estimate_delay_hours(delay_probability, operational_base_time):
+    """
+    Estimate delay hours based on probability.
+    We use operational base time as severity scaler.
+    """
+    return delay_probability * operational_base_time
+# ======================================
+# COST IMPACT ESTIMATION
+# ======================================
+
+def estimate_cost_impact(delay_probability,
+                         order_value,
+                         shipping_cost,
+                         delay_hours,
+                         is_express=False):
+
+    # SLA penalty increases if delay is large
+    if delay_hours > 60:
+        sla_penalty = 0.15 * order_value
+    elif delay_hours > 30:
+        sla_penalty = 0.08 * order_value
+    else:
+        sla_penalty = 0
+
+    # Refund risk proportional to probability
+    refund_cost = 0.05 * order_value * delay_probability
+
+    # Extra shipping adjustment
+    extra_shipping_cost = 0.2 * shipping_cost if delay_probability > 0.5 else 0
+
+    # Express penalty
+    express_penalty = 0.05 * order_value if is_express else 0
+
+    total_delay_cost = (
+        sla_penalty +
+        refund_cost +
+        extra_shipping_cost +
+        express_penalty
+    )
+
+    expected_loss = delay_probability * total_delay_cost
+
+    return round(expected_loss, 2)
+# ======================================
+# FINANCIAL IMPACT PIPELINE
+# ======================================
+
+def calculate_financial_impact(delay_probability,
+                               operational_base_time,
+                               order_value,
+                               shipping_cost,
+                               is_express=False):
+
+    delay_hours = estimate_delay_hours(
+        delay_probability,
+        operational_base_time
+    )
+
+    expected_loss = estimate_cost_impact(
+        delay_probability=delay_probability,
+        order_value=order_value,
+        shipping_cost=shipping_cost,
+        delay_hours=delay_hours,
+        is_express=is_express
+    )
+
+    return delay_hours, expected_loss
