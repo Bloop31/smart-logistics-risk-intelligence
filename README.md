@@ -613,10 +613,10 @@ Mathematical ETA Optimization
 
 Financial Exposure Modeling
 
----
-
 Portfolio-Level Shipment Ranking
 
 Interactive Deployment Interface
 
 The project has evolved from a predictive model into a modular logistics decision intelligence platform with operational and financial awareness.
+
+---
