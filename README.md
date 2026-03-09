@@ -620,3 +620,5 @@ Interactive Deployment Interface
 The project has evolved from a predictive model into a modular logistics decision intelligence platform with operational and financial awareness.
 
 ---
+
+Future Implementations will include cloud deployment, a centralised specific db for the data storage, improvement of the streamlit display for better UI
